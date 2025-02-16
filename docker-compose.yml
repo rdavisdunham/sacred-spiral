@@ -1,0 +1,33 @@
+version: '3.9' # Specify a Docker Compose version
+
+services:
+  strapi:
+    build: ./backend
+    image: ss-strapi-image # Good practice: Give your image a name
+    container_name: ss-strapi-backend  # Good practice: Explicit container names
+    ports:
+      - "1337:1337"
+    volumes:
+      - ./backend/src:/app/src # Corrected path: More consistent with your build context
+      - strapi_node_modules:/app/node_modules # Named volume for node_modules (best practice)
+    environment:
+      - STRAPI_URL=http://strapi:1337
+      - NODE_ENV=development  # Corrected: No extra spaces, KEY=value format
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    image: ss-frontend-image # Good practice: Give your image a name
+    container_name: ss-react-frontend # Good practice: Explicit container names
+    ports:
+      - "3000:80"
+    depends_on:
+      - strapi
+    volumes:
+      - ./frontend/src:/app/src  # Corrected path:  Consistent with frontend structure
+      - frontend_node_modules:/app/node_modules # Named volume for node_modules
+    environment: # add the strapi url here as well, for best practices
+      - STRAPI_URL=http://strapi:1337
+volumes: # Define named volumes at the top level
+  strapi_node_modules:
+  frontend_node_modules:
