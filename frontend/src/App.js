@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Home from './pages/Home';
+import Articles from './pages/Articles';
+import Submissions from './pages/Submissions';
+import Contact from './pages/Contact';
+import Article from './pages/Article'; // Individual article page
+import './styles/App.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/articles" element={<Articles />} />
+        <Route path="/submissions" element={<Submissions />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/articles/:slug" element={<Article />} /> {/* Dynamic route */}
+        {/* Add other routes as needed */}
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;

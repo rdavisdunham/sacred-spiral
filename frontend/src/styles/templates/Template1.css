@@ -1,0 +1,13 @@
+/* src/styles/templates/Template1.css */
+.template1 {
+    padding: 2rem;
+    border: 1px solid #eee; /* Example style */
+  }
+  .template1 h1{
+      text-align: center;
+  }
+  .template1 img{
+      width: 50%;
+      display: block;
+      margin: 0 auto;
+  }

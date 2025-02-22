@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_navigation_sub_nav_items",
+  "info": {
+    "displayName": "SubNavItem",
+    "icon": "arrowDown"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

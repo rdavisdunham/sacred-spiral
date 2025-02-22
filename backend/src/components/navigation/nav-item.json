@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_navigation_nav_items",
+  "info": {
+    "displayName": "NavItem",
+    "icon": "play",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": false
+    },
+    "article": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "page",
+        "category",
+        "article",
+        "external"
+      ]
+    }
+  }
+}
