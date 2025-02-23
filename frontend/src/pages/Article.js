@@ -13,11 +13,14 @@ const Article = () => {
   const { slug } = useParams(); // Get the article slug from the URL
 
   useEffect(() => {
+    console.log("Article.js useEffect triggered, slug:", slug); // Debugging
     const fetchArticle = async () => {
       try {
         const strapiUrl = process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337';
-        const response = await fetch(`${strapiUrl}/api/articles?filters[slug][<span class="math-inline">eq\]\=</span>{slug}&populate=*`); // Fetch by slug
-
+        const apiUrl = `${strapiUrl}/api/articles?filters[slug][$eq]=${slug}&populate=*`;
+        console.log("Fetching Article from URL:", apiUrl); // Log the URL
+        const response = await fetch(apiUrl); // Use the variable in fetch
+        
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -49,7 +52,6 @@ const Article = () => {
     return <div>Article not found.</div>;
   }
 
-  const { attributes } = article;
 
   // Dynamically select the template component
     let TemplateComponent;

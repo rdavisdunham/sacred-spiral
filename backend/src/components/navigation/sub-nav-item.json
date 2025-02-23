@@ -2,7 +2,8 @@
   "collectionName": "components_navigation_sub_nav_items",
   "info": {
     "displayName": "SubNavItem",
-    "icon": "arrowDown"
+    "icon": "arrowDown",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -13,6 +14,19 @@
     "url": {
       "type": "string",
       "required": true
+    },
+    "article": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "page",
+        "article",
+        "external"
+      ]
     }
   }
 }

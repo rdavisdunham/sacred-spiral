@@ -24,7 +24,6 @@
       "type": "enumeration",
       "enum": [
         "page",
-        "category",
         "article",
         "external"
       ]

@@ -13,7 +13,7 @@ const Header = () => {
         const strapiUrl = process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337';
         // Correct and comprehensive population:
         const response = await fetch(`${strapiUrl}/api/navigation?populate[NavItem][populate]=*`);
-
+        // const response = await fetch(`${strapiUrl}/api/navigation?populate[NavItem][populate][0]=article&populate[NavItem][populate][1]=url&populate[NavItem][populate][2]=title&populate[NavItem][populate][3]=NavItem.article.slug`); //Supposed to be explicit population command; No Work
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -55,11 +55,13 @@ const Header = () => {
     <header className="header">
       <nav>
         <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/articles">All Articles</a></li>
         {navigation.NavItem && Array.isArray(navigation.NavItem) && navigation.NavItem.map((item) => (
             <li key={item.id}>
                 {/* Use the related article's slug for the URL */}
-                {/* <Link to={item.type === 'article' && item.article?.data ? `/articles/${item.article.data.slug}` : item.url || '#'}> */}
-                <Link to="/articles/test-static-slug">
+                <Link to={item.type === 'article' && item.article ? `/articles/${item.article.slug}` : item.url || '#'}>
+                {/* <Link to="/articles/test-static-slug"> */}
                     {item.title}
                 </Link>
             </li>
