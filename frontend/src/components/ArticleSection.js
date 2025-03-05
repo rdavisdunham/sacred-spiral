@@ -12,7 +12,7 @@ const ArticleSection = () => {
     const fetchArticles = async () => {
       try {
         const strapiUrl = process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337';
-        const response = await fetch(`${strapiUrl}/api/articles?populate=*`); // Fetch articles
+        const response = await fetch(`${strapiUrl}/api/articles?populate=*`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

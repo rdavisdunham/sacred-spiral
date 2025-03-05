@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import '../styles/ArticlePreview.css';
 
 const ArticlePreview = ({ article }) => {
+  const authorName = article.contributor?.data?.name || 'Unknown';
   // Get the image URL directly from article.attributes.image
   const imageUrl = article.image?.url;  // Access .url DIRECTLY
   const fullImageUrl = imageUrl
@@ -15,7 +16,7 @@ const ArticlePreview = ({ article }) => {
       <Link to={`/articles/${article.slug}`}>
       <div className="article-preview__content">
         <h3>{article.title}</h3>
-        <p>by {article.author}</p>
+        <p>by {authorName || 'Unknown Author'}</p>
       </div>
       {fullImageUrl && (
         <img 

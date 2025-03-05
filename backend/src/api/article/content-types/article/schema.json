@@ -49,7 +49,7 @@
     "content": {
       "type": "blocks"
     },
-    "author": {
+    "contributor": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::contributor.contributor"
