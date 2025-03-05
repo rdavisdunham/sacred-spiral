@@ -1,6 +1,7 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/Header';
+import Landing from './pages/Landing';
 import Home from './pages/Home';
 import Articles from './pages/Articles';
 import Submissions from './pages/Submissions';
@@ -9,11 +10,19 @@ import Article from './pages/Article'; // Individual article page
 import './styles/App.css';
 
 const App = () => {
+  const location = useLocation();
+  const shouldDisplayHeader = () => {
+    const display = location.pathname !== '/';
+    console.log("Current Pathname:", location.pathname, "Display Header:", display); // ADD THIS LOG
+    return display;
+  };
+
   return (
     <div className="app">
-      <Header />
+      {shouldDisplayHeader() && <Header />}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/articles" element={<Articles />} />
         <Route path="/submissions" element={<Submissions />} />
         <Route path="/contact" element={<Contact />} />

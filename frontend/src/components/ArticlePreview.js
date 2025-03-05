@@ -13,11 +13,17 @@ const ArticlePreview = ({ article }) => {
   return (
     <div className="article-preview">
       <Link to={`/articles/${article.slug}`}>
-        {fullImageUrl && (
-          <img src={fullImageUrl} alt={article.title} />
-        )}
+      <div className="article-preview__content">
         <h3>{article.title}</h3>
         <p>by {article.author}</p>
+      </div>
+      {fullImageUrl && (
+        <img 
+          className="article-preview__image"
+          src={fullImageUrl} 
+          alt={article.title} />
+        )}
+        
       </Link>
     </div>
   );

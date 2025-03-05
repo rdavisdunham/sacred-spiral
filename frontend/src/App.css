@@ -28,6 +28,12 @@
   color: #61dafb;
 }
 
+body {
+  background-color: #f0f0f0; /* Light grey - you can change this hex code */
+  /* You can add other global styles here for the body, like font, etc. */
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

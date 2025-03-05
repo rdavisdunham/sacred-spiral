@@ -1,6 +1,6 @@
 /* src/styles/Header.css */
 .header {
-    background-color: #fff;padding: 1rem;
+    background-color: hsla(120,.69%,71.57%,1);padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
@@ -18,3 +18,10 @@
     font-weight: bold;
     text-transform: uppercase;
   }
+
+  .navbar-logo {
+    height: 30px;       /* Adjust to your desired logo height */
+    width: auto;        /* Maintain aspect ratio */
+    vertical-align: middle; /* Align logo vertically in the navbar (optional) */
+    /* You can add other styles here like margin, etc. */
+}

@@ -55,7 +55,16 @@ const Header = () => {
     <header className="header">
       <nav>
         <ul>
-        <li><a href="/">Home</a></li>
+        <li>
+          <a href="/home">
+                <img
+                    src="/spiral.png"
+                    alt="Sacred Spiral"
+                    className="navbar-logo"
+                  />
+                </a>
+            </li>
+        {/* <li><a href="/home">Home</a></li> */}
         <li><a href="/articles">All Articles</a></li>
         {navigation.NavItem && Array.isArray(navigation.NavItem) && navigation.NavItem.map((item) => (
             <li key={item.id}>

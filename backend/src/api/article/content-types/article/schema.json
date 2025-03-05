@@ -15,16 +15,9 @@
     "title": {
       "type": "string"
     },
-    "content": {
-      "type": "text"
-    },
     "slug": {
       "type": "string",
       "unique": true,
-      "required": true
-    },
-    "author": {
-      "type": "string",
       "required": true
     },
     "image": {
@@ -45,6 +38,21 @@
         "template2",
         "template3"
       ]
+    },
+    "genre": {
+      "type": "enumeration",
+      "enum": [
+        "Music Op",
+        "In Service"
+      ]
+    },
+    "content": {
+      "type": "blocks"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::contributor.contributor"
     }
   }
 }

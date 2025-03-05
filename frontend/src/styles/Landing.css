@@ -1,0 +1,18 @@
+
+
+@keyframes spin-ccw {
+    100% {
+      transform: rotate(-360deg); /* Counter-clockwise rotation */
+    }
+  }
+  
+  .spinning-image {
+    animation: spin-ccw 20s linear infinite;
+  }
+
+  .landing-page-container { /* Or whatever class name you used on your Landing component's container */
+    background-color: hsla(120,.69%,71.57%,1);
+    min-height: 100vh;
+    overflow: hidden; /* Prevent scrollbars specifically on the landing page container */
+    /* ... other landing page container styles ... */
+  }
