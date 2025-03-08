@@ -1,0 +1,31 @@
+/* src/styles/SubmissionSection.css */
+
+/* Very basic styles - most are in Home.css */
+.submission-section {
+    /* Base styles in Home.css */
+  }
+  
+  /* Keep the fun interactive spinner though! */
+  .submission-image {
+    /* Base styles in Home.css */
+  }
+  
+  /* Define a CSS variable for rotation amount */
+  :root {
+    --rotation-amount: 360deg;
+  }
+  
+  /* Interactive hover state with CSS variable */
+  @media (prefers-reduced-motion: no-preference) {
+    .submission-section:hover {
+      --rotation-amount: 720deg;
+    }
+  
+    .submission-image {
+      transition: transform 3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Fun bouncy effect */
+    }
+  
+    .submission-image:hover {
+      transform: rotate(var(--rotation-amount));
+    }
+  }

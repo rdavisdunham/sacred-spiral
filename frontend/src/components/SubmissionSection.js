@@ -1,16 +1,23 @@
 import React from 'react';
-import SubmissionPreview from './SubmissionPreview';
-import '../styles/SubmissionSection.css'
+import { Link } from 'react-router-dom';
+import '../styles/SubmissionSection.css'; 
 
 const SubmissionSection = () => {
   return (
     <section className='submission-section'>
-    <SubmissionPreview
-    image="/path/to/storm-image.jpg"
-    title="OPEN CALL FOR ART SUBMISSIONS"
-    text="We are currently accepting art submissions for our publication launching in 2025. Photography, poetry, short stories, and any other kind of art you make, we want to see it!
-    HEAD TO OUR SUBMISSIONS PAGE TO SHARE YOUR WORK."
-    />
+      <img 
+        src="/spiral.png" 
+        alt="Sacred Spiral Studios Logo" 
+        className="submission-image"
+      />
+      <h2>OPEN CALL FOR ART SUBMISSIONS</h2>
+      <p>
+        We are currently accepting art submissions for our publication launching in 2025. 
+        Photography, poetry, short stories, and any other kind of art you make, we want to see it!
+      </p>
+      <Link to="/submissions" className="submission-cta">
+        HEAD TO OUR SUBMISSIONS PAGE
+      </Link>
     </section>
   );
 };

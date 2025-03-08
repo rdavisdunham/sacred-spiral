@@ -1,0 +1,27 @@
+/* src/styles/Hero.css */
+
+/* Keep it super simple but add a tiny bit of animation */
+.hero {
+    /* Base styles are in Home.css */
+  }
+  
+  /* For accessibility - make focus visible on interactive elements */
+  .hero a:focus {
+    outline: 2px solid #333;
+    outline-offset: 3px;
+  }
+  
+  /* Optional: simple animation for the pattern */
+  @keyframes patternMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 20px 20px; }
+  }
+  
+  /* Add this class in the Hero component if you want a subtle background pattern */
+  .hero-with-pattern {
+    background-image: linear-gradient(45deg, hsla(120,.69%,67%,1) 25%, transparent 25%, 
+                       transparent 50%, hsla(120,.69%,67%,1) 50%, 
+                       hsla(120,.69%,67%,1) 75%, transparent 75%, transparent);
+    background-size: 20px 20px;
+    animation: patternMove 60s linear infinite;
+  }

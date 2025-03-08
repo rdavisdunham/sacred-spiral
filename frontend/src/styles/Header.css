@@ -20,7 +20,7 @@
   }
 
   .navbar-logo {
-    height: 30px;       /* Adjust to your desired logo height */
+    height: 40px;       /* Adjust to your desired logo height */
     width: auto;        /* Maintain aspect ratio */
     vertical-align: middle; /* Align logo vertically in the navbar (optional) */
     /* You can add other styles here like margin, etc. */

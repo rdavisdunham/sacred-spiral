@@ -1,0 +1,147 @@
+/* src/styles/Home.css */
+
+/* Main container - basic, no frills */
+.home-container {
+    max-width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  /* Hero section - simple but with subtle animation */
+  .hero {
+    background-color: hsla(120,.69%,71.57%,1);
+    padding: 40px 20px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #333;
+    /* Simple animation on page load */
+    opacity: 0;
+    animation: fadeIn 1.2s forwards;
+  }
+  
+  .hero p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+    color: #333;
+    /* Delayed fade in */
+    opacity: 0;
+    animation: fadeIn 1.2s 0.3s forwards;
+  }
+  
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  
+  /* Article section - keeping it simple */
+  .article-section {
+    padding: 30px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .article-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #333;
+    /* Understated underline on hover */
+    display: inline-block;
+    position: relative;
+  }
+  
+  .article-section h2::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #333;
+    transition: width 0.3s;
+  }
+  
+  .article-section h2:hover::after {
+    width: 100%;
+  }
+  
+  .article-section p {
+    max-width: 800px;
+    margin-bottom: 30px;
+    color: #333;
+    line-height: 1.5;
+  }
+  
+  /* Basic layout for articles with hover animation */
+  .articles-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  /* Submission section - simple but interactive */
+  .submission-section {
+    background-color: hsla(120,.69%,71.57%,1);
+    padding: 30px 20px;
+    text-align: center;
+    border-top: 1px solid #333;
+  }
+  
+  .submission-image {
+    max-width: 200px;
+    margin-bottom: 20px;
+    /* Slow rotation on hover */
+    transition: transform 2s ease;
+  }
+  
+  .submission-image:hover {
+    transform: rotate(-360deg);
+  }
+  
+  .submission-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .submission-section p {
+    max-width: 600px;
+    margin: 0 auto 20px;
+    line-height: 1.5;
+    color: #333;
+  }
+  
+  .submission-cta {
+    display: inline-block;
+    background-color: transparent;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid #333;
+    margin-top: 20px;
+    transition: all 0.3s;
+  }
+  
+  .submission-cta:hover {
+    background-color: #333;
+    color: hsla(120,.69%,71.57%,1);
+  }
+  
+  /* Raw, simple responsive design */
+  @media screen and (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+    
+    .article-section h2, 
+    .submission-section h2 {
+      font-size: 1.5rem;
+    }
+  }

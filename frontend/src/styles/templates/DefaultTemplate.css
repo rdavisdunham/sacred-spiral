@@ -1,5 +1,151 @@
 /* src/styles/templates/DefaultTemplate.css */
 
-.defaultTemplate h2{
-    text-align: center
-  }
+.defaulttemplate {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Article header */
+.article-header {
+  margin-bottom: 30px;
+}
+
+.defaulttemplate h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin: 20px 0;
+  text-align: center;
+  color: #333;
+}
+
+.article-metadata {
+  text-align: center;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.article-author {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.article-date {
+  font-size: 0.9rem;
+}
+
+/* Genre tag */
+.article-genre {
+  display: inline-block;
+  background-color: #4a7c59;
+  color: white;
+  font-size: 0.8rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  display: block;
+  width: fit-content;
+  margin: 0 auto 15px auto;
+}
+
+/* Featured image */
+.article-featured-image {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.article-featured-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.article-featured-image figcaption {
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Article content */
+.article-content {
+  line-height: 1.6;
+  color: #333;
+}
+
+.article-paragraph {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.article-link {
+  color: #4a7c59;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(74, 124, 89, 0.3);
+  transition: border-bottom-color 0.2s;
+}
+
+.article-link:hover {
+  border-bottom-color: #4a7c59;
+}
+
+/* Lists */
+.article-list {
+  margin-bottom: 1.5rem;
+  padding-left: 2rem;
+}
+
+.article-list-item {
+  margin-bottom: 0.5rem;
+}
+
+/* Blockquotes */
+.article-blockquote {
+  border-left: 4px solid #4a7c59;
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #555;
+}
+
+/* Text formatting */
+.article-content strong {
+  font-weight: 600;
+}
+
+.article-content em {
+  font-style: italic;
+}
+
+.article-content code {
+  background-color: #f5f5f5;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.9em;
+}
+
+/* Headings within content */
+.article-heading-2 {
+  font-size: 1.8rem;
+  margin: 2rem 0 1rem;
+  color: #333;
+}
+
+.article-heading-3 {
+  font-size: 1.5rem;
+  margin: 1.8rem 0 1rem;
+  color: #444;
+}
+
+.article-heading-4 {
+  font-size: 1.3rem;
+  margin: 1.5rem 0 0.8rem;
+  color: #555;
+}

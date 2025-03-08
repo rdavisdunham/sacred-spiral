@@ -1,5 +1,37 @@
+/* src/styles/ArticleSection.css */
+
 .articles-container {
-    /* ... other styles for .articles-container ... */
-    display: block;
-    /* ... other styles ... */
-  }
+  /* Basic styling, minimal but with subtle hover effects */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.article-preview {
+  /* Make each article preview gently lift on hover */
+  transition: transform 0.3s ease;
+}
+
+.article-preview:hover {
+  transform: translateY(-5px);
+}
+
+.view-all-articles {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.view-all-articles a {
+  display: inline-block;
+  color: #333;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid #333;
+  transition: all 0.3s;
+}
+
+.view-all-articles a:hover {
+  background-color: #333;
+  color: hsla(120,.69%,71.57%,1);
+}
