@@ -4,16 +4,20 @@ import Header from './components/Header';
 import Landing from './pages/Landing';
 import Home from './pages/Home';
 import Articles from './pages/Articles';
-import Submissions from './pages/Submissions';
+import Article from './pages/Article';
+import Artists from './pages/Artists';
+import About from './pages/About';
+import IanWilliam from './pages/IanWilliam';
 import Contact from './pages/Contact';
-import Article from './pages/Article'; // Individual article page
+import Archive from './pages/Archive';
+import Submissions from './pages/Submissions';
 import './styles/App.css';
 
 const App = () => {
   const location = useLocation();
   const shouldDisplayHeader = () => {
     const display = location.pathname !== '/';
-    console.log("Current Pathname:", location.pathname, "Display Header:", display); // ADD THIS LOG
+    console.log("Current Pathname:", location.pathname, "Display Header:", display);
     return display;
   };
 
@@ -23,11 +27,26 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
+        
+        {/* Article routes */}
         <Route path="/articles" element={<Articles />} />
+        <Route path="/articles/genre/:genre" element={<Articles />} />
+        <Route path="/articles/:slug" element={<Article />} />
+        
+        {/* Artist routes */}
+        <Route path="/artists" element={<Artists />} />
+        <Route path="/artists/:artistId" element={<Artists />} />
+        
+        {/* Other main pages */}
+        <Route path="/about" element={<About />} />
+        <Route path="/about/ian-william" element={<IanWilliam />} />
+        <Route path="/about/:teamMemberId" element={<About />} />
         <Route path="/submissions" element={<Submissions />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/articles/:slug" element={<Article />} /> {/* Dynamic route */}
-        {/* Add other routes as needed */}
+        
+        {/* Archive routes */}
+        <Route path="/archive" element={<Archive />} />
+        <Route path="/archive/:month" element={<Archive />} />
       </Routes>
     </div>
   );

@@ -6,33 +6,43 @@ import '../styles/ArticlePreview.css';
 const ArticlePreview = ({ article }) => {
   console.log("Article data in preview:", article);
   
-  // Handle contributor data - in Strapi v5, the structure will depend on your content type setup
+  // Check if article exists
+  if (!article) {
+    return <div className="article-preview article-preview-error">Article data missing</div>;
+  }
+  
+  // Handle contributor data with safety checks
   let authorName = 'Sacred Spiral Studios';
   
-  // Check if contributor exists and how it's structured
+  // Check if contributor exists
   if (article.contributor) {
-    // Direct reference (not using .data in Strapi v5)
     authorName = article.contributor.name || 'Sacred Spiral Studios';
   } else if (article.author) {
     // Fallback to author field if it exists
     authorName = article.author;
   }
   
-  // Extract genre if available
-  const genre = article.genre || '';
+  // Extract collection or genre info
+  let categoryName = '';
+  if (article.collection) {
+    categoryName = article.collection.title || '';
+  } else if (article.genre) {
+    // Fallback to the old genre field
+    categoryName = article.genre;
+  }
   
-  // Get the image URL directly from article.image
-  const imageUrl = article.image?.url;
-  const fullImageUrl = imageUrl
-    ? `${process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337'}${imageUrl}`
-    : null;
-    
+  // Get the image URL
+  let fullImageUrl = null;
+  if (article.image && article.image.url) {
+    fullImageUrl = `${process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337'}${article.image.url}`;
+  }
+  
   return (
     <div className="article-preview">
       <Link to={`/articles/${article.slug}`}>
         <div className="article-preview__content">
           <h3>{article.title}</h3>
-          {genre && <span className="article-preview__genre">{genre}</span>}
+          {categoryName && <span className="article-preview__genre">{categoryName}</span>}
           <p>by {authorName}</p>
         </div>
         {fullImageUrl && (

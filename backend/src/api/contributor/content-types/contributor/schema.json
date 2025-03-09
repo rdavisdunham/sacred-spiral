@@ -28,6 +28,11 @@
         "videos",
         "audios"
       ]
+    },
+    "collections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::collection.collection"
     }
   }
 }

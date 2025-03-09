@@ -39,13 +39,6 @@
         "template3"
       ]
     },
-    "genre": {
-      "type": "enumeration",
-      "enum": [
-        "Music Op",
-        "In Service"
-      ]
-    },
     "content": {
       "type": "blocks"
     },
@@ -53,6 +46,12 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::contributor.contributor"
+    },
+    "collection": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::collection.collection",
+      "inversedBy": "articles"
     }
   }
 }

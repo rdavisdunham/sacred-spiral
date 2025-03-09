@@ -6,14 +6,15 @@ const Header = () => {
   const [navigation, setNavigation] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [collections, setCollections] = useState([]);
 
   useEffect(() => {
     const fetchNavigation = async () => {
       try {
         const strapiUrl = process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337';
-        // Correct and comprehensive population:
+        // Fetch main navigation
         const response = await fetch(`${strapiUrl}/api/navigation?populate[NavItem][populate]=*`);
-        // const response = await fetch(`${strapiUrl}/api/navigation?populate[NavItem][populate][0]=article&populate[NavItem][populate][1]=url&populate[NavItem][populate][2]=title&populate[NavItem][populate][3]=NavItem.article.slug`); //Supposed to be explicit population command; No Work
+        
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -35,7 +36,30 @@ const Header = () => {
       }
     };
 
+    const fetchCollections = async () => {
+      try {
+        const strapiUrl = process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337';
+        const response = await fetch(`${strapiUrl}/api/collections`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const jsonData = await response.json();
+        console.log("Collections data:", jsonData);
+        
+        if (jsonData.data) {
+          setCollections(jsonData.data);
+        } else {
+          console.log("No collections data found");
+        }
+      } catch (error) {
+        console.error("Error fetching collections:", error);
+      }
+    };
+
     fetchNavigation();
+    fetchCollections();
   }, []);
 
   if (loading) {
@@ -49,32 +73,50 @@ const Header = () => {
   if (!navigation) {
     return <div className="header">No navigation data found.</div>;
   }
-  // No need to check for .attributes here
 
   return (
     <header className="header">
       <nav>
-        <ul>
-        <li>
-          <a href="/home">
-                <img
-                    src="/spiral.png"
-                    alt="Sacred Spiral"
-                    className="navbar-logo"
-                  />
-                </a>
-            </li>
-        {/* <li><a href="/home">Home</a></li> */}
-        <li><a href="/articles">All Articles</a></li>
-        {navigation.NavItem && Array.isArray(navigation.NavItem) && navigation.NavItem.map((item) => (
-            <li key={item.id}>
-                {/* Use the related article's slug for the URL */}
-                <Link to={item.type === 'article' && item.article ? `/articles/${item.article.slug}` : item.url || '#'}>
-                {/* <Link to="/articles/test-static-slug"> */}
-                    {item.title}
+        <ul className="nav-menu">
+          <li>
+            <Link to="/home">
+              <img
+                src="/spiral.png"
+                alt="Sacred Spiral"
+                className="navbar-logo"
+              />
+            </Link>
+          </li>
+          
+          {/* Articles Dropdown - Show on hover */}
+          <li className="dropdown">
+            <Link to="/articles">ARTICLES</Link>
+            <div className="dropdown-content">
+              <Link to="/articles">ALL ARTICLES</Link>
+              {collections && collections.length > 0 && collections.map((collection) => (
+                <Link 
+                  key={collection.id} 
+                  to={`/articles/genre/${collection.slug}`}
+                >
+                  {collection.title.toUpperCase()}
                 </Link>
+              ))}
+            </div>
+          </li>
+          
+          <li><Link to="/artists">ARTISTS</Link></li>
+          <li><Link to="/about">ABOUT</Link></li>
+          <li><Link to="/contact">CONTACT</Link></li>
+          <li><Link to="/archive">ARCHIVE</Link></li>
+          
+          {/* Dynamic Nav Items from Strapi */}
+          {navigation.NavItem && Array.isArray(navigation.NavItem) && navigation.NavItem.map((item) => (
+            <li key={item.id}>
+              <Link to={item.type === 'article' && item.article ? `/articles/${item.article.slug}` : item.url || '#'}>
+                {item.title}
+              </Link>
             </li>
-        ))}
+          ))}
         </ul>
       </nav>
     </header>
