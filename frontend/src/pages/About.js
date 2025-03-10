@@ -72,7 +72,7 @@ const About = () => {
             {/* Featured team member - Ian William */}
             <div className="team-member featured">
               <img 
-                src="/ian-william.jpg" 
+                src="/team/ian-william.jpg" 
                 alt="Ian William" 
                 className="team-photo"
               />
@@ -92,8 +92,8 @@ const About = () => {
             {team.length > 0 ? team.map(member => {
               console.log("Rendering team member:", member);
               
-              // Only render if we have required data
-              if (!member || !member.name) {
+              // Only render if we have required data and a slug
+              if (!member || !member.name || !member.slug) {
                 return null;
               }
               
@@ -119,7 +119,8 @@ const About = () => {
                           : 'Team member at Sacred Spiral Studios'
                       ) : 'Team member at Sacred Spiral Studios'}
                     </p>
-                    <Link to={`/about/team/${member.id}`} className="view-profile-link">
+                    {/* Updated: Use slug instead of ID */}
+                    <Link to={`/about/team/${member.slug}`} className="view-profile-link">
                       View Profile
                     </Link>
                   </div>

@@ -10,6 +10,7 @@ import Artists from './pages/Artists';
 import Artist from './pages/Artist';
 import About from './pages/About';
 import IanWilliam from './pages/IanWilliam';
+import Contributor from './pages/Contributor'; // Import the new Contributor component
 import Contact from './pages/Contact';
 import Archive from './pages/Archive';
 import Submissions from './pages/Submissions';
@@ -35,14 +36,16 @@ const App = () => {
         <Route path="/articles/genre/:genre" element={<Articles />} />
         <Route path="/articles/:slug" element={<Article />} />
         
-        {/* Artist routes - Using nested routes to fix the issue */}
+        {/* Artist routes */}
         <Route path="/artists" element={<Artists />} />
         <Route path="/artists/:slug" element={<Artist />} />
         
-        {/* Other main pages */}
+        {/* About and Team routes */}
         <Route path="/about" element={<About />} />
         <Route path="/about/ian-william" element={<IanWilliam />} />
-        <Route path="/about/:teamMemberId" element={<About />} />
+        <Route path="/about/team/:slug" element={<Contributor />} />
+        
+        {/* Other main pages */}
         <Route path="/submissions" element={<Submissions />} />
         <Route path="/contact" element={<Contact />} />
         

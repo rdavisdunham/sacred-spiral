@@ -107,6 +107,7 @@ const Header = () => {
           <li><Link to="/artists">ARTISTS</Link></li>
           <li><Link to="/about">ABOUT</Link></li>
           <li><Link to="/contact">CONTACT</Link></li>
+          <li><Link to="/submissions">SUBMISSIONS</Link></li>
           <li><Link to="/archive">ARCHIVE</Link></li>
           
           {/* Dynamic Nav Items from Strapi */}

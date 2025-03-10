@@ -33,6 +33,11 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::collection.collection"
+    },
+    "slug": {
+      "type": "string",
+      "required": true,
+      "unique": true
     }
   }
 }

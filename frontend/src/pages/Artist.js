@@ -107,8 +107,8 @@ const Artist = () => {
         )}
         
         <div className="artist-gallery">
-          {artist.images && artist.images.data && artist.images.data.length > 0 ? (
-            artist.images.data.map((image, index) => {
+          {artist.images && artist.images.length > 0 ? (
+            artist.images.map((image, index) => {
               // Get URL from the correct location based on data structure
               const imageUrl = image.url || (image.attributes?.url);
               
