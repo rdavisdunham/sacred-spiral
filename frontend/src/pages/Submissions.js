@@ -32,29 +32,94 @@ const Submissions = () => {
     e.preventDefault();
     setSubmitting(true);
     
-    // Simulating form submission
-    // In a real implementation, you would upload the files to Strapi
-    setTimeout(() => {
+    try {
+      const strapiUrl = process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337';
+      
+      // Get files from input
+      const fileInput = document.getElementById('art-files');
+      const files = fileInput.files;
+      
+      // Create a FormData object to handle file uploads
+      const formDataWithFiles = new FormData();
+      
+      // First, upload the files to Strapi's upload API
+      if (files.length > 0) {
+        // Add each file to formData
+        for (let i = 0; i < files.length; i++) {
+          formDataWithFiles.append('files', files[i]);
+        }
+        
+        // Submit the files first to get their IDs
+        const uploadResponse = await fetch(`${strapiUrl}/api/upload`, {
+          method: 'POST',
+          body: formDataWithFiles,
+        });
+        
+        if (!uploadResponse.ok) {
+          throw new Error(`Upload failed with status: ${uploadResponse.status}`);
+        }
+        
+        // Get the uploaded file IDs
+        const uploadedFiles = await uploadResponse.json();
+        console.log('Files uploaded successfully:', uploadedFiles);
+        
+        // Now create the submission with references to the uploaded files
+        const submissionData = {
+          data: {
+            ...formData,
+            artFiles: uploadedFiles.map(file => file.id),
+            status: 'pending'
+          }
+        };
+        
+        // Submit the submission data to Strapi
+        const submissionResponse = await fetch(`${strapiUrl}/api/submissions`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(submissionData),
+        });
+        
+        if (!submissionResponse.ok) {
+          throw new Error(`Submission failed with status: ${submissionResponse.status}`);
+        }
+        
+        const result = await submissionResponse.json();
+        console.log('Submission created successfully:', result);
+        
+        setSubmitStatus({
+          success: true,
+          message: 'Thank you for your submission! We will review your work and get back to you soon.'
+        });
+      } else {
+        throw new Error('Please select at least one file to upload');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
       setSubmitStatus({
-        success: true,
-        message: 'Thank you for your submission! We will review your work and get back to you soon.'
+        success: false,
+        message: `There was a problem with your submission: ${error.message}`
       });
+    } finally {
       setSubmitting(false);
       
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        artType: '',
-        description: '',
-        website: '',
-        socialMedia: ''
-      });
-      setFileSelected(false);
-      
-      // Reset file input (need to use vanilla JS as React doesn't control file inputs directly)
-      document.getElementById('art-files').value = '';
-    }, 1500);
+      if (submitStatus?.success) {
+        // Reset form on success
+        setFormData({
+          name: '',
+          email: '',
+          artType: '',
+          description: '',
+          website: '',
+          socialMedia: ''
+        });
+        setFileSelected(false);
+        
+        // Reset file input
+        document.getElementById('art-files').value = '';
+      }
+    }
   };
 
   return (

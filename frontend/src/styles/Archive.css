@@ -1,210 +1,235 @@
 /* src/styles/Archive.css */
 
 .archive-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-  
-  .archive-page h1 {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 40px;
-    color: #333;
-    position: relative;
-  }
-  
-  .archive-page h1:after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 3px;
-    background-color: #333;
-    margin: 15px auto 0;
-  }
-  
-  /* Loading, error and empty states */
-  .archive-loading, .archive-error, .archive-empty {
-    text-align: center;
-    padding: 60px 20px;
-    font-size: 1.2rem;
-    color: #666;
-  }
-  
-  .archive-error {
-    color: #cc0000;
-  }
-  
-  /* Main layout */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Loading and error states */
+.archive-loading, .archive-error, .archive-empty {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.archive-error {
+  color: #cc0000;
+}
+
+/* Main layout */
+.archive-container {
+  display: flex;
+  gap: 40px;
+}
+
+/* Month sidebar */
+.month-sidebar {
+  flex: 0 0 250px;
+}
+
+.month-sidebar h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #333;
+}
+
+.month-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.month-list li {
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #333;
+}
+
+.month-list li:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.month-list li.active {
+  background-color: #333;
+  color: white;
+  font-weight: 500;
+}
+
+/* Archive content */
+.archive-content {
+  flex: 1;
+}
+
+.month-heading {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  color: #333;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #333;
+}
+
+/* Article section */
+.month-articles {
+  margin-bottom: 40px;
+}
+
+.month-articles h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.archive-articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.no-articles {
+  background-color: #e8f0e8;
+  padding: 20px;
+  text-align: center;
+  border-radius: 4px;
+  color: #666;
+}
+
+/* Customized minimal style for article previews in archive */
+.archive-article-preview {
+  /* Smaller, more compact styling */
+  max-width: 100%; 
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #afc0af;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.archive-article-preview:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.archive-article-preview .article-preview__content {
+  margin-right: 10px;
+}
+
+.archive-article-preview h3 {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.archive-article-preview p {
+  font-size: 0.8rem;
+  margin-bottom: 0;
+}
+
+.archive-article-preview .article-preview__genre {
+  padding: 2px 6px;
+  font-size: 0.65rem;
+  margin-bottom: 5px;
+}
+
+.archive-article-preview .article-preview__image {
+  max-width: 30%;
+  height: 80px;
+}
+
+/* Artist of the Month section */
+.month-aotm {
+  margin-top: 40px;
+}
+
+.month-aotm h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.aotm-preview {
+  display: flex;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.aotm-thumbnail {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.aotm-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.aotm-info h4 {
+  font-size: 1.3rem;
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.view-aotm-button {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  align-self: flex-start;
+  transition: background-color 0.2s;
+}
+
+.view-aotm-button:hover {
+  background-color: #000;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
   .archive-container {
-    display: flex;
-    gap: 40px;
+    flex-direction: column;
   }
   
-  /* Month sidebar */
   .month-sidebar {
-    flex: 0 0 250px;
-  }
-  
-  .month-sidebar h2 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: #333;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #333;
+    flex: none;
+    width: 100%;
+    margin-bottom: 30px;
   }
   
   .month-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
   
   .month-list li {
-    padding: 10px 15px;
-    border-radius: 4px;
-    margin-bottom: 5px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: #333;
-  }
-  
-  .month-list li:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-  
-  .month-list li.active {
-    background-color: #333;
-    color: white;
-    font-weight: 500;
-  }
-  
-  /* Archive content */
-  .archive-content {
-    flex: 1;
-  }
-  
-  .month-heading {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-    color: #333;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #333;
-  }
-  
-  /* Article section */
-  .month-articles {
-    margin-bottom: 40px;
-  }
-  
-  .month-articles h3 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: #444;
+    margin-bottom: 0;
   }
   
   .archive-articles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 20px;
-  }
-  
-  .no-articles {
-    background-color: #f8f8f8;
-    padding: 20px;
-    text-align: center;
-    border-radius: 4px;
-    color: #666;
-  }
-  
-  /* Artist of the Month section */
-  .month-aotm {
-    margin-top: 40px;
-  }
-  
-  .month-aotm h3 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: #444;
+    grid-template-columns: 1fr;
   }
   
   .aotm-preview {
-    display: flex;
-    background-color: #f8f8f8;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
   }
   
   .aotm-thumbnail {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    flex-shrink: 0;
+    width: 100%;
+    height: 200px;
   }
-  
-  .aotm-info {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .aotm-info h4 {
-    font-size: 1.3rem;
-    margin: 0 0 15px 0;
-    color: #333;
-  }
-  
-  .view-aotm-button {
-    display: inline-block;
-    padding: 8px 15px;
-    background-color: #333;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    align-self: flex-start;
-    transition: background-color 0.2s;
-  }
-  
-  .view-aotm-button:hover {
-    background-color: #000;
-  }
-  
-  /* Responsive adjustments */
-  @media screen and (max-width: 768px) {
-    .archive-container {
-      flex-direction: column;
-    }
-    
-    .month-sidebar {
-      flex: none;
-      width: 100%;
-      margin-bottom: 30px;
-    }
-    
-    .month-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    
-    .month-list li {
-      margin-bottom: 0;
-    }
-    
-    .archive-articles-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .aotm-preview {
-      flex-direction: column;
-    }
-    
-    .aotm-thumbnail {
-      width: 100%;
-      height: 200px;
-    }
-  }
+}

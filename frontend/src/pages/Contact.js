@@ -27,16 +27,44 @@ const Contact = () => {
     try {
       const strapiUrl = process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337';
       
+      // Check for required fields
+      if (!formData.name || !formData.email || !formData.message) {
+        throw new Error('Please fill out all required fields');
+      }
+      
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        throw new Error('Please enter a valid email address');
+      }
+      
+      // Add timestamp to the form data
+      const contactData = {
+        data: {
+          ...formData,
+          date: new Date().toISOString(),
+          status: 'unread'
+        }
+      };
+      
+      // Send data to Strapi
       const response = await fetch(`${strapiUrl}/api/contacts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ data: formData }),
+        body: JSON.stringify(contactData),
       });
       
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorResponse = await response.json();
+        console.error('API error response:', errorResponse);
+        
+        if (errorResponse.error && errorResponse.error.message) {
+          throw new Error(`Error: ${errorResponse.error.message}`);
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
       }
       
       const data = await response.json();
@@ -60,7 +88,7 @@ const Contact = () => {
       
       setSubmitStatus({
         success: false,
-        message: 'There was a problem submitting your message. Please try again later.'
+        message: `${error.message || 'There was a problem submitting your message. Please try again later.'}`
       });
     } finally {
       setSubmitting(false);

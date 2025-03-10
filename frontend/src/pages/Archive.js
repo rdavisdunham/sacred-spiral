@@ -1,3 +1,4 @@
+// frontend/src/pages/Archive.js
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import ArticlePreview from '../components/ArticlePreview';
@@ -20,7 +21,7 @@ const Archive = () => {
         
         // Fetch all articles sorted by publishedAt
         const articlesResponse = await fetch(
-          `${strapiUrl}/api/articles?populate[0]=image&populate[1]=contributor&populate[2]=collection&sort[0]=publishedAt:desc`
+          `${strapiUrl}/api/articles?populate=*&sort[0]=publishedAt:desc`
         );
 
         if (!articlesResponse.ok) {
@@ -28,11 +29,14 @@ const Archive = () => {
         }
 
         const articlesData = await articlesResponse.json();
+        console.log("Articles data for archive:", articlesData);
+        
+        // Extract articles
         const articles = articlesData.data || [];
         
         // Fetch all AotM entries
         const aotmResponse = await fetch(
-          `${strapiUrl}/api/aotms?populate=*&sort[0]=publishedAt:desc`
+          `${strapiUrl}/api/artists?populate=avatar&sort[0]=publishedAt:desc`
         );
 
         if (!aotmResponse.ok) {
@@ -40,6 +44,7 @@ const Archive = () => {
         }
 
         const aotmData = await aotmResponse.json();
+        console.log("Artists data for archive:", aotmData);
         const aotmEntries = aotmData.data || [];
         
         // Group by month
@@ -48,9 +53,11 @@ const Archive = () => {
         
         // Process articles
         articles.forEach(article => {
-          if (!article.attributes?.publishedAt) return;
+          // Get publishedAt from appropriate location
+          const publishedAt = article.publishedAt;
+          if (!publishedAt) return;
           
-          const date = new Date(article.attributes.publishedAt);
+          const date = new Date(publishedAt);
           const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
           const monthLabel = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
           
@@ -63,24 +70,31 @@ const Archive = () => {
             monthSet.add(monthKey);
           }
           
+          // Add the full article object to the archive
           archivesByMonth[monthKey].articles.push(article);
+          
+          // Log one article to check its structure
+          if (archivesByMonth[monthKey].articles.length === 1) {
+            console.log(`Example article for ${monthKey}:`, article);
+          }
         });
         
-        // Process AotM entries
-        aotmEntries.forEach(aotm => {
-          if (!aotm.attributes?.publishedAt) return;
+        // Process Artist entries
+        aotmEntries.forEach(artist => {
+          const publishedAt = artist.publishedAt;
+          if (!publishedAt) return;
           
-          const date = new Date(aotm.attributes.publishedAt);
+          const date = new Date(publishedAt);
           const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
           const monthLabel = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
           
           if (archivesByMonth[monthKey]) {
-            archivesByMonth[monthKey].aotm = aotm;
+            archivesByMonth[monthKey].aotm = artist;
           } else {
             archivesByMonth[monthKey] = {
               label: monthLabel,
               articles: [],
-              aotm: aotm
+              aotm: artist
             };
             monthSet.add(monthKey);
           }
@@ -161,7 +175,8 @@ const Archive = () => {
                     {archives[selectedMonth].articles.map(article => (
                       <ArticlePreview 
                         key={article.id} 
-                        article={article.attributes}
+                        article={article}
+                        className="archive-article-preview" 
                       />
                     ))}
                   </div>
@@ -172,25 +187,41 @@ const Archive = () => {
               
               {archives[selectedMonth].aotm && (
                 <section className="month-aotm">
-                  <h3>Artist of the Month</h3>
+                  <h3>Featured Artist</h3>
                   <div className="aotm-preview">
-                    {archives[selectedMonth].aotm.attributes?.photos?.data && 
-                     archives[selectedMonth].aotm.attributes.photos.data.length > 0 && (
-                      <img 
-                        src={`${process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337'}${archives[selectedMonth].aotm.attributes.photos.data[0].attributes.url}`}
-                        alt={archives[selectedMonth].aotm.attributes.title || "Artist of the Month"}
-                        className="aotm-thumbnail"
-                      />
-                    )}
-                    <div className="aotm-info">
-                      <h4>{archives[selectedMonth].aotm.attributes?.title || "Featured Artist"}</h4>
-                      <Link 
-                        to={`/artists/${archives[selectedMonth].aotm.id}`} 
-                        className="view-aotm-button"
-                      >
-                        View Details
-                      </Link>
-                    </div>
+                    {(() => {
+                      const artist = archives[selectedMonth].aotm;
+                      // Log artist data structure to debug
+                      console.log("Featured artist data structure:", artist);
+                      
+                      // Get avatar URL
+                      const avatarData = artist.avatar?.data;
+                      const avatarUrl = avatarData ? 
+                        (avatarData.url || avatarData.attributes?.url) : null;
+                      
+                      const name = artist.name || "Featured Artist";
+                      
+                      return (
+                        <>
+                          {avatarUrl && (
+                            <img 
+                              src={`${process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337'}${avatarUrl}`}
+                              alt={name}
+                              className="aotm-thumbnail"
+                            />
+                          )}
+                          <div className="aotm-info">
+                            <h4>{name}</h4>
+                            <Link 
+                              to={`/artists/${artist.slug}`} 
+                              className="view-aotm-button"
+                            >
+                              View Details
+                            </Link>
+                          </div>
+                        </>
+                      );
+                    })()}
                   </div>
                 </section>
               )}

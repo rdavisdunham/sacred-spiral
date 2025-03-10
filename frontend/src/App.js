@@ -1,3 +1,4 @@
+// frontend/src/App.js
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/Header';
@@ -6,6 +7,7 @@ import Home from './pages/Home';
 import Articles from './pages/Articles';
 import Article from './pages/Article';
 import Artists from './pages/Artists';
+import Artist from './pages/Artist';
 import About from './pages/About';
 import IanWilliam from './pages/IanWilliam';
 import Contact from './pages/Contact';
@@ -33,9 +35,9 @@ const App = () => {
         <Route path="/articles/genre/:genre" element={<Articles />} />
         <Route path="/articles/:slug" element={<Article />} />
         
-        {/* Artist routes */}
+        {/* Artist routes - Using nested routes to fix the issue */}
         <Route path="/artists" element={<Artists />} />
-        <Route path="/artists/:artistId" element={<Artists />} />
+        <Route path="/artists/:slug" element={<Artist />} />
         
         {/* Other main pages */}
         <Route path="/about" element={<About />} />
